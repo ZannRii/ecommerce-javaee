@@ -1,0 +1,144 @@
+@charset "UTF-8";
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f4f6f8;
+}
+
+/* STICKY HEADER */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* TOP NAV */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #131921;
+    color: white;
+    padding: 12px 20px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* SEARCH */
+.search-bar input {
+    width: 300px;
+    padding: 7px;
+    border: none;
+    border-radius: 4px;
+}
+
+.search-bar button {
+    padding: 7px 12px;
+    background: orange;
+    border: none;
+    cursor: pointer;
+}
+
+/* NAV RIGHT */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* LOGIN BUTTON */
+.login-btn {
+    padding: 6px 12px;
+    background: orange;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.login-btn:hover {
+    background: #ffb84d;
+}
+
+/* CATEGORY NAV */
+.category-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    background: #232f3e;
+    padding: 10px;
+}
+
+.category-nav button {
+    padding: 8px 14px;
+    border: none;
+    background: #37475a;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.category-nav button:hover {
+    background: orange;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 50px;
+    background: linear-gradient(135deg, #ff9900, #ff6600);
+    color: white;
+}
+
+/* PRODUCTS */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+/* PRODUCT CARD */
+.product-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.product-card button {
+    margin-top: 10px;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    background: #ff9900;
+    cursor: pointer;
+}
+
+/* USER TEXT */
+.user {
+    color: #fff;
+    font-weight: bold;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #131921;
+    color: white;
+}
