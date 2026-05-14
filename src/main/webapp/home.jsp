@@ -1,15 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="model.User"%>
-
+<%@ page import="java.util.List"%>
+<%@ page import="model.Product"%>
 <%
     User user = (User) session.getAttribute("user");
 %>
-
+<%
+    @SuppressWarnings("unchecked")
+    List<Product> products = (List<Product>) request.getAttribute("products");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>ShopHub</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
 <body>
@@ -52,71 +56,53 @@
 		<p>Up to 50% off</p>
 	</section>
 
-	<!-- PRODUCTS -->
+
+
+
+
 	<section class="products">
 
-		<!-- PRODUCT 1 -->
-		<div class="product-card tech">
-			<img src="images/laptop.png">
-			<h3>Laptop</h3>
-			<p>$899</p>
+		<%
+    if (products != null) {
+        for(Product p : products) { 
+        %>
+
+		<div class="product-card">
+
+			<img src="<%= p.getImageUrl() %>">
+
+			<h3><%= p.getName() %></h3>
+
+			<p>
+				$<%= p.getPrice() %></p>
 
 			<form action="cart" method="post">
-				<input type="hidden" name="productId" value="1"> <input
-					type="number" name="quantity" value="1" min="1">
+				<input type="hidden" name="productId"
+					value="<%= p.getProductId() %>"> <input type="number"
+					name="quantity" value="1">
 
-				<button type="submit">Add to Cart</button>
+				<button type="submit">Add To Cart</button>
 			</form>
-		</div>
-		<!-- PRODUCT 2 -->
-		<div class="product-card fashion">
-			<img src="images/shirt.jpg">
-			<h3>Shirt</h3>
-			<p>$25</p>
 
-			<form action="cart" method="post">
-				<input type="hidden" name="productId" value="2"> <input
-					type="number" name="quantity" value="1" min="1">
-
-				<button type="submit">Add to Cart</button>
-			</form>
 		</div>
 
-		<!-- PRODUCT 3 -->
-		<div class="product-card tech">
-			<img src="images/phone.jpg">
-			<h3>Phone</h3>
-			<p>$499</p>
+		<%
+        }
+    } else {
+%>
 
-			<form action="cart" method="post">
-				<input type="hidden" name="productId" value="3"> <input
-					type="number" name="quantity" value="1" min="1">
+		<p>No products available.</p>
 
-				<button type="submit">Add to Cart</button>
-			</form>
-		</div>
-
-		<!-- PRODUCT 4 -->
-		<div class="product-card home">
-			<img src="images/chair.jpg">
-			<h3>Chair</h3>
-			<p>$120</p>
-
-			<form action="cart" method="post">
-				<input type="hidden" name="productId" value="4"> <input
-					type="number" name="quantity" value="1" min="1">
-
-				<button type="submit">Add to Cart</button>
-			</form>
-		</div>
+		<%
+    }
+%>
 
 	</section>
-
 	<footer>
 		<p>© 2026 ShopHub</p>
 	</footer>
 
-	<script src="js/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 
 </body>
 </html>
