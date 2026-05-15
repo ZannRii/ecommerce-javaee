@@ -23,6 +23,6 @@ public class LogoutController extends HttpServlet {
             session.invalidate(); // destroy login session
         }
 
-        response.sendRedirect("home.jsp"); // redirect to public home page
+        response.sendRedirect("home"); // redirect to public home page
     }
 }

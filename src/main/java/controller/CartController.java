@@ -1,18 +1,13 @@
 package controller;
 
-import java.io.IOException;
-
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import dao.CartDAO;
+import dao.CartDao;
+import dao.CartItemDao;
 import model.User;
 
-/**
- * Servlet Filter implementation class CartController
- */
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+import java.io.IOException;
 @WebServlet("/cart")
 public class CartController extends HttpServlet {
 
@@ -20,23 +15,67 @@ public class CartController extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private CartDao cartDao = new CartDao();
+    private CartItemDao cartItemDao = new CartItemDao();
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+    // VIEW CART
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-        int productId = Integer.parseInt(request.getParameter("productId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-
-        User user = (User) request.getSession().getAttribute("user");
-
+        User user = (User) req.getSession().getAttribute("user");
         if (user == null) {
-            response.setStatus(401);
+            resp.sendRedirect("login.jsp");
             return;
         }
 
-        CartDAO dao = new CartDAO();
-        dao.addToCart(user.getUserId(), productId, quantity);
+        int cartId = cartDao.getCartIdByUser(user.getUserId());
 
-        response.getWriter().write("SUCCESS");
+        req.setAttribute("items", cartItemDao.getCartItems(cartId));
+        req.setAttribute("total", cartItemDao.getTotal(cartId));
+
+        req.getRequestDispatcher("cart.jsp").forward(req, resp);
+    }
+
+    // ADD / REMOVE / UPDATE
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        User user = (User) req.getSession().getAttribute("user");
+
+        int cartId = cartDao.getCartIdByUser(user.getUserId());
+
+        if (cartId == -1) {
+            cartId = cartDao.createCart(user.getUserId());
+        }
+
+        String action = req.getParameter("action");
+
+        if ("add".equals(action)) {
+
+            cartItemDao.addOrUpdate(
+                cartId,
+                Integer.parseInt(req.getParameter("productId")),
+                Integer.parseInt(req.getParameter("quantity"))
+            );
+
+        } else if ("remove".equals(action)) {
+
+            cartItemDao.removeItem(
+                cartId,
+                Integer.parseInt(req.getParameter("productId"))
+            );
+
+        } else if ("update".equals(action)) {
+
+            cartItemDao.updateQuantity(
+                cartId,
+                Integer.parseInt(req.getParameter("productId")),
+                Integer.parseInt(req.getParameter("quantity"))
+            );
+        }
+
+        resp.sendRedirect("home");
     }
 }

@@ -1,19 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="model.User"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.Map"%>
 <%@ page import="model.Product"%>
 <%
-    User user = (User) session.getAttribute("user");
+User user = (User) session.getAttribute("user");
 %>
 <%
-    @SuppressWarnings("unchecked")
-    List<Product> products = (List<Product>) request.getAttribute("products");
+@SuppressWarnings("unchecked")
+List<Product> products = (List<Product>) request.getAttribute("products");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <title>ShopHub</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
 <body>
@@ -30,14 +32,23 @@
 			</div>
 
 			<div class="nav-right">
-				🛍 Cart: <span id="cartCount">0</span>
 
-				<% if (user == null) { %>
+				<a href="cart" class="cart-link"> 🛍 Cart: <span id="cartCount">
+						${cartCount} </span>
+				</a>
+
+				<%
+				if (user == null) {
+				%>
 				<a href="login.jsp" class="login-btn">Login</a>
-				<% } else { %>
-				<span class="user">Hi, <%= user.getName() %></span> <a href="logout"
+				<%
+				} else {
+				%>
+				<span class="user">Hi, <%=user.getName()%></span> <a href="logout"
 					class="login-btn">Logout</a>
-				<% } %>
+				<%
+				}
+				%>
 			</div>
 		</header>
 
@@ -63,39 +74,39 @@
 	<section class="products">
 
 		<%
-    if (products != null) {
-        for(Product p : products) { 
-        %>
+		if (products != null) {
+			for (Product p : products) {
+		%>
 
 		<div class="product-card">
 
-			<img src="<%= p.getImageUrl() %>">
+			<img src="<%=p.getImageUrl()%>">
 
-			<h3><%= p.getName() %></h3>
+			<h3><%=p.getName()%></h3>
 
 			<p>
-				$<%= p.getPrice() %></p>
+				$<%=p.getPrice()%></p>
 
 			<form action="cart" method="post">
-				<input type="hidden" name="productId"
-					value="<%= p.getProductId() %>"> <input type="number"
-					name="quantity" value="1">
 
+				<input type="hidden" name="action" value="add">
+				<input type="hidden" name="productId" value="<%=p.getProductId()%>">
+				<input type="number" name="quantity" value="1">
 				<button type="submit">Add To Cart</button>
 			</form>
 
 		</div>
 
 		<%
-        }
-    } else {
-%>
+		}
+		} else {
+		%>
 
 		<p>No products available.</p>
 
 		<%
-    }
-%>
+		}
+		%>
 
 	</section>
 	<footer>

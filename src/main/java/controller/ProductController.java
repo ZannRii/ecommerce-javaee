@@ -1,7 +1,10 @@
 package controller;
 
+import dao.CartDao;
+import dao.CartItemDao;
 import dao.ProductDao;
 import model.Product;
+import model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,19 +18,42 @@ import java.util.List;
 @WebServlet("/home")
 public class ProductController extends HttpServlet {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private ProductDao productDao = new ProductDao();
+    private static final long serialVersionUID = 1L;
+    private ProductDao productDao = new ProductDao();
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-		List<Product> products = productDao.getAllProducts();
+        // --------------------
+        // PRODUCTS
+        // --------------------
+        List<Product> products = productDao.getAllProducts();
+        req.setAttribute("products", products);
 
-		req.setAttribute("products", products);
+        // --------------------
+        // CART COUNT
+        // --------------------
+        int cartCount = 0;
+        User user = (User) req.getSession().getAttribute("user");
 
-		req.getRequestDispatcher("home.jsp").forward(req, resp);
-	}
+        if (user != null) {
+
+            CartDao cartDao = new CartDao();
+            CartItemDao cartItemDao = new CartItemDao();
+
+            int cartId = cartDao.getCartIdByUser(user.getUserId());
+
+            if (cartId != -1) {
+                cartCount = cartItemDao.getTotalQuantity(cartId);
+            }
+        }
+
+        req.setAttribute("cartCount", cartCount);
+
+        // --------------------
+        // FORWARD
+        // --------------------
+        req.getRequestDispatcher("home.jsp").forward(req, resp);
+    }
 }
