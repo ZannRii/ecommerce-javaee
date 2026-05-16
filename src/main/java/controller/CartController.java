@@ -34,7 +34,7 @@ public class CartController extends HttpServlet {
         req.setAttribute("items", cartItemDao.getCartItems(cartId));
         req.setAttribute("total", cartItemDao.getTotal(cartId));
 
-        req.getRequestDispatcher("cart.jsp").forward(req, resp);
+        req.getRequestDispatcher("cartDetails.jsp").forward(req, resp);
     }
 
     // ADD / REMOVE / UPDATE
@@ -44,6 +44,10 @@ public class CartController extends HttpServlet {
 
         User user = (User) req.getSession().getAttribute("user");
 
+        if (user == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
         int cartId = cartDao.getCartIdByUser(user.getUserId());
 
         if (cartId == -1) {

@@ -95,7 +95,7 @@ public class CartItemDao {
             "SELECT ci.cart_item_id, ci.quantity, " +
             "p.product_id, p.name, p.price, p.image_url " +
             "FROM cart_items ci " +
-            "JOIN product p ON ci.product_id = p.product_id " +
+            "JOIN products p ON ci.product_id = p.product_id " +
             "WHERE ci.cart_id=?";
 
         try (Connection con = DBConnection.getConnection();
