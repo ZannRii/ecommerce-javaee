@@ -89,8 +89,8 @@ List<Product> products = (List<Product>) request.getAttribute("products");
 
 			<form action="cart" method="post">
 
-				<input type="hidden" name="action" value="add">
-				<input type="hidden" name="productId" value="<%=p.getProductId()%>">
+				<input type="hidden" name="action" value="add"> <input
+					type="hidden" name="productId" value="<%=p.getProductId()%>">
 				<input type="number" name="quantity" value="1">
 				<button type="submit">Add To Cart</button>
 			</form>

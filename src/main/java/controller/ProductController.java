@@ -54,6 +54,6 @@ public class ProductController extends HttpServlet {
         // --------------------
         // FORWARD
         // --------------------
-        req.getRequestDispatcher("home.jsp").forward(req, resp);
+        req.getRequestDispatcher("user/home.jsp").forward(req, resp);
     }
 }

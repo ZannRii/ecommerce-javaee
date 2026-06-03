@@ -18,13 +18,8 @@ public class UserController extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private UserDAO userDAO;
 
-    @Override
-    public void init() throws ServletException {
-        Connection conn = DBConnection.getConnection();
-        userDAO = new UserDAO(conn);
-    }
+	private UserDAO userDAO = new UserDAO();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

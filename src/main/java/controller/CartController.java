@@ -34,7 +34,7 @@ public class CartController extends HttpServlet {
         req.setAttribute("items", cartItemDao.getCartItems(cartId));
         req.setAttribute("total", cartItemDao.getTotal(cartId));
 
-        req.getRequestDispatcher("cartDetails.jsp").forward(req, resp);
+        req.getRequestDispatcher("cart/cartDetails.jsp").forward(req, resp);
     }
 
     // ADD / REMOVE / UPDATE
