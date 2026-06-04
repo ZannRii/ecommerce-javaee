@@ -22,11 +22,20 @@ body {
     padding: 12px 20px;
 }
 
+a {
+    text-decoration: none;
+}
 .logo {
     font-size: 22px;
     font-weight: bold;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
 }
 
+.logo:hover {
+    opacity: 0.8;
+}
 /* SEARCH */
 .search-bar input {
     width: 300px;
@@ -115,6 +124,9 @@ body {
     margin: auto;
 }
 
+.cart-link{
+	color : orange;
+}
 .product-card:hover {
     transform: scale(1.03);
 }
@@ -154,6 +166,10 @@ body {
     background: #ffb84d;
 }
 
+.detail-btn {
+    background: white;
+    font-size : 11px;
+}
 /* USER TEXT */
 .user {
     color: #fff;

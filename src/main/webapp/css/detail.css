@@ -1,0 +1,116 @@
+@charset "UTF-8";
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+}
+
+/* MAIN CONTAINER */
+.container {
+    display: flex;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+/* LEFT IMAGE */
+.image-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-box img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* RIGHT INFO */
+.info-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* PRODUCT NAME */
+.info-box h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* PRICE */
+.price {
+    font-size: 28px;
+    font-weight: bold;
+    color: #e74c3c;
+    margin: 10px 0;
+}
+
+/* STOCK */
+.stock {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* DESCRIPTION */
+.desc {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* FORM */
+.action-form {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* QUANTITY INPUT */
+.action-form input[type="number"] {
+    width: 100px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+/* BUTTONS */
+.cart-btn,
+.buy-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: 0.3s;
+}
+
+/* ADD TO CART */
+.cart-btn {
+    background: #27ae60;
+}
+
+.cart-btn:hover {
+    background: #219150;
+}
+
+/* BUY NOW */
+.buy-btn {
+    background: #e74c3c;
+}
+
+.buy-btn:hover {
+    background: #c0392b;
+}

@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="model.User"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Map"%>
@@ -93,8 +94,10 @@ List<Product> products = (List<Product>) request.getAttribute("products");
 					type="hidden" name="productId" value="<%=p.getProductId()%>">
 				<input type="number" name="quantity" value="1">
 				<button type="submit">Add To Cart</button>
-			</form>
 
+			</form>
+			<a href="product-detail?id=<%=p.getProductId()%>"
+				class="btn detail-btn"> View Details -></a>
 		</div>
 
 		<%

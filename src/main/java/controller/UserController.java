@@ -6,10 +6,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import dao.UserDAO;
 import model.User;
-import util.DBConnection;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {

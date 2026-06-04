@@ -11,7 +11,7 @@
 <body>
 
 	<header class="top-nav">
-		<div class="logo">🛒 ShopHub</div>
+		<a href="home" class="logo"> 🛒 ShopHub </a>
 	</header>
 	<div class="container">
 		<h2>Login</h2>

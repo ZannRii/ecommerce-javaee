@@ -1,11 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="model.CartItem"%>
 <%@ page import="model.User"%>
 
 <%
 User user = (User) session.getAttribute("user");
-
+@SuppressWarnings("unchecked")
 List<CartItem> items = (List<CartItem>) request.getAttribute("items");
 
 double total = 0;
@@ -32,10 +33,9 @@ if (request.getAttribute("total") != null) {
 	<!-- HEADER -->
 	<div class="sticky-header">
 		<header class="top-nav">
-			<div class="logo">🛒 ShopHub</div>
+			<a href="home" class="logo"> 🛒 ShopHub </a>
 			<div class="nav-right">
-				<a href="home" class="login-btn"> Home </a> <span class="user">
-					Hi, <%=user.getName()%>
+				<span class="user"> Hi, <%=user.getName()%>
 				</span> <a href="logout" class="login-btn"> Logout </a>
 			</div>
 		</header>
