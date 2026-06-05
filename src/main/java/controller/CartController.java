@@ -66,14 +66,14 @@ public class CartController extends HttpServlet {
 
         } else if ("remove".equals(action)) {
 
-            cartItemDao.removeItem(
+            cartItemDao.remove(
                 cartId,
                 Integer.parseInt(req.getParameter("productId"))
             );
 
         } else if ("update".equals(action)) {
 
-            cartItemDao.updateQuantity(
+            cartItemDao.updateQty(
                 cartId,
                 Integer.parseInt(req.getParameter("productId")),
                 Integer.parseInt(req.getParameter("quantity"))

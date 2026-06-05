@@ -45,7 +45,7 @@ public class ProductController extends HttpServlet {
             int cartId = cartDao.getCartIdByUser(user.getUserId());
 
             if (cartId != -1) {
-                cartCount = cartItemDao.getTotalQuantity(cartId);
+                cartCount = cartItemDao.getTotalQty(cartId);
             }
         }
 

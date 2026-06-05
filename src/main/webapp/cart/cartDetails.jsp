@@ -109,7 +109,13 @@ if (request.getAttribute("total") != null) {
 			<h2>
 				Total : $<%=total%>
 			</h2>
-			<button class="checkout-btn">Checkout</button>
+			<form action="checkout" method="post">
+
+				<input type="hidden" name="type" value="cart">
+
+				<button type="submit" class="checkout-btn">Checkout</button>
+
+			</form>
 		</div>
 		<%
 		} else {

@@ -3,6 +3,11 @@ package dao;
 import util.DBConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.CartItem;
+import model.Product;
 
 public class CartDao {
 
@@ -48,5 +53,47 @@ public class CartDao {
         }
 
         return -1;
+    }
+    
+    public List<CartItem> getCartItems(int userId) {
+
+        List<CartItem> cartItems = new ArrayList<>();
+
+        String sql =
+            "SELECT ci.cart_item_id, ci.quantity, " +
+            "p.product_id, p.name, p.price, p.image_url " +
+            "FROM cart_items ci " +
+            "JOIN cart c ON ci.cart_id = c.cart_id " +
+            "JOIN products p ON ci.product_id = p.product_id " +
+            "WHERE c.user_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Product product = new Product();
+                product.setProductId(rs.getInt("product_id"));
+                product.setName(rs.getString("name"));
+                product.setPrice(rs.getDouble("price"));
+                product.setImageUrl(rs.getString("image_url"));
+
+                CartItem item = new CartItem();
+                item.setCartItemId(rs.getInt("cart_item_id"));
+                item.setQuantity(rs.getInt("quantity"));
+                item.setProduct(product);
+
+                cartItems.add(item);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return cartItems;
     }
 }

@@ -28,8 +28,7 @@ Product p = (Product) request.getAttribute("product");
 		<header class="top-nav">
 			<a href="home" class="logo"> 🛒 ShopHub </a>
 			<div class="nav-right">
-				 <span class="user">
-					Hi, <%=user.getName()%>
+				<span class="user"> Hi, <%=user.getName()%>
 				</span> <a href="logout" class="login-btn"> Logout </a>
 			</div>
 		</header>
@@ -60,18 +59,26 @@ Product p = (Product) request.getAttribute("product");
 			</p>
 
 			<!-- ACTION FORM -->
+			
 			<form action="cart" method="post" class="action-form">
 
 				<input type="hidden" name="productId" value="<%=p.getProductId()%>">
 
-				<label>Quantity</label> <input type="number" name="quantity"
+				<label>Cart Quantity</label> <input type="number" name="quantity"
 					value="1" min="1" max="<%=p.getStockQuantity()%>">
 
 				<button type="submit" name="action" value="add" class="cart-btn">
 					Add To Cart</button>
+			</form>
+			<form action="checkout" method="post" class="action-form">
 
-				<button type="submit" formaction="buy-now" class="buy-btn">
-					Buy Now</button>
+				<input type="hidden" name="type" value="buyNow"> <input
+					type="hidden" name="productId" value="<%=p.getProductId()%>">
+
+				<label>Product Quantity</label> <input type="number" name="quantity"
+					value="1" min="1" max="<%=p.getStockQuantity()%>">
+
+				<button type="submit" class="buy-btn">Buy Now</button>
 
 			</form>
 
