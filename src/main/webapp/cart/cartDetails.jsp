@@ -35,6 +35,8 @@ if (request.getAttribute("total") != null) {
 		<header class="top-nav">
 			<a href="home" class="logo"> 🛒 ShopHub </a>
 			<div class="nav-right">
+				<a href="cart" class="cart-link"> 🛍 Cart: <span id="cartCount">
+						${cartCount} </span>
 				<span class="user"> Hi, <%=user.getName()%>
 				</span> <a href="logout" class="login-btn"> Logout </a>
 			</div>

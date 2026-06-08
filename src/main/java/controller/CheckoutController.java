@@ -31,43 +31,55 @@ public class CheckoutController extends HttpServlet {
 	private CartItemDao cartItemDao = new CartItemDao();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
+			throws ServletException, IOException {
 
-	    String type = request.getParameter("type");
-	    User user = (User) request.getSession().getAttribute("user");
+		String type = request.getParameter("type");
+		User user = (User) request.getSession().getAttribute("user");
 
-	    if (user == null) {
-	        response.sendRedirect("login.jsp");
-	        return;
-	    }
+		if (user == null) {
+			response.sendRedirect("login.jsp");
+			return;
+		}
+		int cartCount = 0;
+		if (user != null) {
 
-	    if ("buyNow".equals(type)) {
+			CartDao cartDao = new CartDao();
+			CartItemDao cartItemDao = new CartItemDao();
 
-	        int productId = Integer.parseInt(request.getParameter("productId"));
-	        int quantity = Integer.parseInt(request.getParameter("quantity"));
+			int cartId = cartDao.getCartIdByUser(user.getUserId());
 
-	        Product product = productDao.findById(productId);
+			if (cartId != -1) {
+				cartCount = cartItemDao.getTotalQty(cartId);
+			}
+		}
+		request.setAttribute("cartCount", cartCount);
 
-	        double total = product.getPrice() * quantity;
+		if ("buyNow".equals(type)) {
 
-	        request.setAttribute("type", "buyNow");
-	        request.setAttribute("product", product);
-	        request.setAttribute("quantity", quantity);
-	        request.setAttribute("total", total);
+			int productId = Integer.parseInt(request.getParameter("productId"));
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
 
-	    } else {
+			Product product = productDao.findById(productId);
 
-	        int cartId = cartDao.getCartIdByUser(user.getUserId());
+			double total = product.getPrice() * quantity;
 
-	        List<CartItem> cartItems = cartItemDao.getCartItems(cartId);
+			request.setAttribute("type", "buyNow");
+			request.setAttribute("product", product);
+			request.setAttribute("quantity", quantity);
+			request.setAttribute("total", total);
 
-	        double total = cartItemDao.getTotal(cartId);
+		} else {
 
-	        request.setAttribute("type", "cart");
-	        request.setAttribute("cartItems", cartItems);
-	        request.setAttribute("total", total);
-	    }
-	    request.getRequestDispatcher("checkout/checkout.jsp")
-	            .forward(request, response);
+			int cartId = cartDao.getCartIdByUser(user.getUserId());
+
+			List<CartItem> cartItems = cartItemDao.getCartItems(cartId);
+
+			double total = cartItemDao.getTotal(cartId);
+
+			request.setAttribute("type", "cart");
+			request.setAttribute("cartItems", cartItems);
+			request.setAttribute("total", total);
+		}
+		request.getRequestDispatcher("checkout/checkout.jsp").forward(request, response);
 	}
 }

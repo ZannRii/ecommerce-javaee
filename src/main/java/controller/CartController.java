@@ -28,7 +28,19 @@ public class CartController extends HttpServlet {
             resp.sendRedirect("login.jsp");
             return;
         }
+        int cartCount = 0;
+		if (user != null) {
 
+			CartDao cartDao = new CartDao();
+			CartItemDao cartItemDao = new CartItemDao();
+
+			int cartId = cartDao.getCartIdByUser(user.getUserId());
+
+			if (cartId != -1) {
+				cartCount = cartItemDao.getTotalQty(cartId);
+			}
+		}
+		req.setAttribute("cartCount", cartCount);
         int cartId = cartDao.getCartIdByUser(user.getUserId());
 
         req.setAttribute("items", cartItemDao.getCartItems(cartId));
