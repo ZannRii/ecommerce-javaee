@@ -92,7 +92,7 @@ Double total = (Double) request.getAttribute("total");
 				<p><%=item.getProduct().getName()%></p>
 
 				<p>
-					Qty:
+					Quantity:
 					<%=item.getQuantity()%></p>
 
 				<p>

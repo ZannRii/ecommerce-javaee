@@ -159,4 +159,18 @@ public class CartItemDao {
 
         return 0;
     }
+    
+    public void clearCart(int cartId) {
+
+		String sql = "DELETE FROM cart_items WHERE cart_id=?";
+
+		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setInt(1, cartId);
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
