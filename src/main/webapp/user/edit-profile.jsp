@@ -1,26 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%@ page import="java.util.*"%>
-<%@ page import="model.*"%>
-
+<%@ page import="model.User"%>
 <%
 User user = (User) session.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Checkout</title>
-
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
-
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/order.css">
+	href="${pageContext.request.contextPath}/css/profile.css">
 </head>
-
 <body>
-
 	<!-- ================= HEADER ================= -->
 	<div class="sticky-header">
 		<header class="top-nav">
@@ -29,8 +23,7 @@ User user = (User) session.getAttribute("user");
 
 			<div class="nav-right">
 				<a href="cart" class="cart-link"> 🛍 Cart: <span id="cartCount">
-						${cartCount} </span>
-				</a> <span class="user"> Hi, <%=user.getName()%>
+						${cartCount} </span></a> <span class="user"> Hi, <%=user.getName()%>
 				</span>
 				<!-- DROPDOWN MENU -->
 				<div class="user-menu">
@@ -49,33 +42,32 @@ User user = (User) session.getAttribute("user");
 
 		</header>
 	</div>
+	<div class="profile-container">
 
-	<!-- SUCCESS CONTENT -->
-	<div class="success-container">
+		<h2>My Profile</h2>
 
-		<div class="success-card">
+		<div class="profile-card">
 
-			<h1>✅ Order Placed Successfully!</h1>
+			<form action="update-profile" method="post">
 
-			<p>Thank you for shopping with ShopHub.</p>
+				<input type="text" name="name" value="<%=user.getName()%>">
 
-			<p>Your order has been received and is being processed.</p>
+				<input type="text" name="phone" value="<%=user.getPhone()%>">
+				
+				<input type="text" name="email" value="<%=user.getEmail()%>">
 
-			<div class="btn-group">
+				<button type="submit">Update Profile</button>
 
-				<a href="home" class="home-btn"> Continue Shopping </a> <a
-					href="my-orders" class="orders-btn"> View My Orders </a>
-
-			</div>
+			</form>
 
 		</div>
 
 	</div>
-
 	<!-- ================= FOOTER ================= -->
 	<footer>
 		<p>© 2026 ShopHub</p>
 	</footer>
+
 	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 </body>
 </html>

@@ -36,8 +36,22 @@ if (request.getAttribute("total") != null) {
 			<a href="home" class="logo"> 🛒 ShopHub </a>
 			<div class="nav-right">
 				<a href="cart" class="cart-link"> 🛍 Cart: <span id="cartCount">
-						${cartCount} </span> <span class="user"> Hi, <%=user.getName()%>
-				</span> <a href="logout" class="login-btn"> Logout </a>
+						${cartCount} </span>
+				</a> <span class="user"> Hi, <%=user.getName()%>
+				</span>
+				<!-- DROPDOWN MENU -->
+				<div class="user-menu">
+
+					<div class="user-icon" onclick="toggleMenu()">☰</div>
+
+					<div id="dropdownMenu" class="dropdown-menu">
+
+						<a href="profile">👤 Profile</a> <a href="my-orders">📦 My
+							Orders</a> <a href="logout">🚪 Logout</a>
+
+					</div>
+
+				</div>
 			</div>
 		</header>
 	</div>
@@ -136,6 +150,6 @@ if (request.getAttribute("total") != null) {
 	<footer>
 		<p>© 2026 ShopHub</p>
 	</footer>
-
+	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 </body>
 </html>

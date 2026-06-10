@@ -55,6 +55,7 @@ public class UserDAO {
                     user.setUserId(rs.getInt("user_id"));
                     user.setName(rs.getString("name"));
                     user.setEmail(rs.getString("email"));
+                    user.setPhone(rs.getString("phone"));
                     user.setRole(rs.getString("role"));
                 }
             }
@@ -87,5 +88,27 @@ public class UserDAO {
         }
 
         return exists;
+    }
+    
+    public boolean updateProfile(User user) {
+
+        String sql =
+            "UPDATE users SET name=?, phone=?, email=? WHERE user_id=?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getPhone());
+            ps.setString(3, user.getEmail());
+            ps.setInt(4, user.getUserId());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

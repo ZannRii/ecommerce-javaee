@@ -31,3 +31,23 @@ function searchProduct() {
         }
     }
 }
+
+function toggleMenu() {
+    const menu = document.getElementById("dropdownMenu");
+
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
+
+// close menu when click outside
+window.onclick = function(event) {
+    if (!event.target.matches('.user-icon')) {
+        const menu = document.getElementById("dropdownMenu");
+        if (menu) {
+            menu.style.display = "none";
+        }
+    }
+}

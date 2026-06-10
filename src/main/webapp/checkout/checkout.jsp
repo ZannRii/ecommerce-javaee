@@ -5,6 +5,7 @@
 <%@ page import="model.*"%>
 
 <%
+User user = (User) session.getAttribute("user");
 String type = (String) request.getAttribute("type");
 
 Product product = (Product) request.getAttribute("product");
@@ -38,7 +39,21 @@ Double total = (Double) request.getAttribute("total");
 			<div class="nav-right">
 				<a href="cart" class="cart-link"> 🛍 Cart: <span id="cartCount">
 						${cartCount} </span>
-				</a> <a href="logout" class="login-btn">Logout</a>
+				</a><span class="user"> Hi, <%=user.getName()%>
+				</span>
+				<!-- DROPDOWN MENU -->
+				<div class="user-menu">
+
+					<div class="user-icon" onclick="toggleMenu()">☰</div>
+
+					<div id="dropdownMenu" class="dropdown-menu">
+
+						<a href="profile">👤 Profile</a> <a href="my-orders">📦 My
+							Orders</a> <a href="logout">🚪 Logout</a>
+
+					</div>
+
+				</div>
 			</div>
 
 		</header>
@@ -152,6 +167,6 @@ Double total = (Double) request.getAttribute("total");
 	<footer>
 		<p>© 2026 ShopHub</p>
 	</footer>
-
+	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 </body>
 </html>

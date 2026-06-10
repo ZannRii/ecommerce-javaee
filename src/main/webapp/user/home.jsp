@@ -45,8 +45,22 @@ List<Product> products = (List<Product>) request.getAttribute("products");
 				<%
 				} else {
 				%>
-				<span class="user">Hi, <%=user.getName()%></span> <a href="logout"
-					class="login-btn">Logout</a>
+				<span class="user"> Hi, <%=user.getName()%>
+				</span>
+				<!-- DROPDOWN MENU -->
+				<div class="user-menu">
+
+					<div class="user-icon" onclick="toggleMenu()">☰</div>
+
+					<div id="dropdownMenu" class="dropdown-menu">
+
+						<a href="profile">👤 Profile</a> <a href="my-orders">📦 My
+							Orders</a> <a href="logout">🚪 Logout</a>
+
+					</div>
+
+				</div>
+
 				<%
 				}
 				%>

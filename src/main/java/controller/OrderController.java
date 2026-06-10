@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -46,7 +45,7 @@ public class OrderController extends HttpServlet {
 
 			double total = product.getPrice() * quantity;
 
-			int orderId = orderDao.createOrder(user.getUserId(), total);
+			int orderId = orderDao.createOrder(user.getUserId(), total,address);
 
 			orderDao.addOrderItem(orderId, productId, quantity, product.getPrice());
 
@@ -58,7 +57,7 @@ public class OrderController extends HttpServlet {
 
 			double total = cartItemDao.getTotal(cartId);
 
-			int orderId = orderDao.createOrder(user.getUserId(), total);
+			int orderId = orderDao.createOrder(user.getUserId(), total, address);
 
 			for (CartItem item : items) {
 

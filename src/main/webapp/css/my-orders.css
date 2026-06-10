@@ -1,0 +1,222 @@
+@charset "UTF-8";
+/* Container Box Layout rules */
+.orders-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-title {
+    border-bottom: 2px solid #333;
+    padding-bottom: 12px;
+    margin-bottom: 30px;
+    color: #222;
+    font-size: 1.6rem;
+}
+
+/* Empty State Handling Blocks */
+.no-orders-box {
+    text-align: center;
+    padding: 60px 20px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.no-orders-msg {
+    font-size: 1.15rem;
+    color: #666;
+    margin-bottom: 24px;
+}
+
+.shop-now-btn {
+    display: inline-block;
+    background-color: #222;
+    color: #fff;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.shop-now-btn:hover {
+    background-color: #444;
+}
+
+/* Main Outer Order Card Shell */
+.order-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    background-color: #fff;
+}
+
+/* Order Header Area */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+
+.meta-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.order-id {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111;
+}
+
+.order-date {
+    color: #777;
+    font-size: 0.85rem;
+}
+
+/* Base Badge Settings */
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Dynamic Badge Colors mapped via Enum */
+.badge-pending { background-color: #fff3e0; color: #ef6c00; }
+.badge-paid { background-color: #e3f2fd; color: #1565c0; }
+.badge-shipped { background-color: #f3e5f5; color: #6a1b9a; }
+.badge-delivered { background-color: #e8f5e9; color: #2e7d32; }
+.badge-cancelled { background-color: #ffebee; color: #c62828; }
+
+/* Item Row Blocks */
+.order-items-list {
+    margin-bottom: 20px;
+}
+
+.item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px dashed #f0f0f0;
+}
+
+.item-row:last-child {
+    border-bottom: none;
+}
+
+.item-product-details {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.product-thumb {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.product-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.product-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+
+.product-qty {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.item-pricing {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.unit-price {
+    color: #777;
+    font-size: 0.85rem;
+}
+
+.subtotal-price {
+    color: #111;
+    font-size: 0.95rem;
+}
+
+/* Card Bottom Footer Layer */
+.order-footer {
+    background-color: #fcfcfc;
+    border-top: 1px solid #f0f0f0;
+    padding: 16px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delivery-block, .total-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.delivery-block {
+    max-width: 65%;
+}
+
+.total-block {
+    text-align: right;
+}
+
+.footer-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.address-text {
+    color: #444;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.grand-total-amount {
+    font-size: 1.45rem;
+    color: #d32f2f;
+    font-weight: 700;
+}
+.cancel-btn{
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.cancel-btn:hover{
+    opacity:0.9;
+}
