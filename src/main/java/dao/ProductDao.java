@@ -44,7 +44,7 @@ public class ProductDao {
 		return products;
 	}
 
-	//For Product Detail
+	// For Product Detail
 	public Product findById(int id) {
 
 		Product product = null;
@@ -72,5 +72,21 @@ public class ProductDao {
 		}
 
 		return product;
+	}
+
+	public void updateStock(int productId, int stock) {
+
+		String sql = "UPDATE products SET stock_quantity=? WHERE product_id=?";
+
+		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setInt(1, stock);
+			ps.setInt(2, productId);
+
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

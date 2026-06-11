@@ -106,7 +106,7 @@ List<Product> products = (List<Product>) request.getAttribute("products");
 
 				<input type="hidden" name="action" value="add"> <input
 					type="hidden" name="productId" value="<%=p.getProductId()%>">
-				<input type="number" name="quantity" value="1">
+				<input type="number" name="quantity" value="1" min="1" max="<%=p.getStockQuantity()%>">
 				<button type="submit">Add To Cart</button>
 
 			</form>

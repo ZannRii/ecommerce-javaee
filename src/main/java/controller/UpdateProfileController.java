@@ -27,10 +27,11 @@ public class UpdateProfileController extends HttpServlet {
 
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
 
 		sessionUser.setName(name);
 		sessionUser.setPhone(phone);
-
+		sessionUser.setEmail(email);
 		boolean success = userDao.updateProfile(sessionUser);
 
 		if (success) {

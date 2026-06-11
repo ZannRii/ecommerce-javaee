@@ -3,6 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="model.CartItem"%>
 <%@ page import="model.User"%>
+<%@ page import="model.Product"%>
 
 <%
 User user = (User) session.getAttribute("user");
@@ -15,7 +16,9 @@ if (request.getAttribute("total") != null) {
 	total = (double) request.getAttribute("total");
 }
 %>
-
+<%
+Product p = (Product) request.getAttribute("product");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +78,6 @@ if (request.getAttribute("total") != null) {
 			<%
 			for (CartItem item : items) {
 			%>
-
 			<tr>
 				<!-- IMAGE -->
 				<td><img src="<%=item.getProduct().getImageUrl()%>"
@@ -92,7 +94,8 @@ if (request.getAttribute("total") != null) {
 							type="hidden" name="productId"
 							value="<%=item.getProduct().getProductId()%>"> <input
 							type="number" name="quantity" value="<%=item.getQuantity()%>"
-							min="1" class="qty-input">
+							min="1" max="<%=item.getProduct().getStockQuantity()%>"
+							class="qty-input">
 
 						<button type="submit" class="update-btn">Update</button>
 					</form>

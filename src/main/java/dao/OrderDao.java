@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.OrderItemDetail;
+import model.Product;
 import util.DBConnection;
 
 public class OrderDao {
@@ -111,21 +112,43 @@ public class OrderDao {
 		return orderList;
 	}
 
-	public boolean cancelOrder(int orderId) {
+	public void cancelOrder(int orderId) {
 
-		String sql = "UPDATE orders SET status='CANCELLED' WHERE order_id=?";
+	    String getItems =
+	        "SELECT product_id, quantity FROM order_items WHERE order_id=?";
 
-		try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+	    String updateOrder =
+	        "UPDATE orders SET status='CANCELLED' WHERE order_id=?";
 
-			ps.setInt(1, orderId);
+	    String updateStock =
+	        "UPDATE products SET stock_quantity = stock_quantity + ? WHERE product_id=?";
 
-			return ps.executeUpdate() > 0;
+	    try (Connection conn = DBConnection.getConnection()) {
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	        // 1. restore stock
+	        PreparedStatement ps1 = conn.prepareStatement(getItems);
+	        ps1.setInt(1, orderId);
+	        ResultSet rs = ps1.executeQuery();
 
-		return false;
+	        while (rs.next()) {
+
+	            int productId = rs.getInt("product_id");
+	            int qty = rs.getInt("quantity");
+
+	            PreparedStatement ps2 = conn.prepareStatement(updateStock);
+	            ps2.setInt(1, qty);
+	            ps2.setInt(2, productId);
+	            ps2.executeUpdate();
+	        }
+
+	        // 2. cancel order
+	        PreparedStatement ps3 = conn.prepareStatement(updateOrder);
+	        ps3.setInt(1, orderId);
+	        ps3.executeUpdate();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 }
