@@ -115,7 +115,7 @@ public class UserController extends HttpServlet {
 
             // role-based redirect
             if ("ADMIN".equals(user.getRole())) {
-                response.sendRedirect("admin/dashboard.jsp");
+                response.sendRedirect("admin/dashboard");
             } else {
                 response.sendRedirect("home");
             }

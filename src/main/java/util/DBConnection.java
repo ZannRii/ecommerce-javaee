@@ -3,6 +3,7 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+
 public class DBConnection {
     private static Connection connection;
     public static Connection getConnection() {
@@ -18,6 +19,7 @@ public class DBConnection {
                 );
 
                 System.out.println("DB Connected");
+              
             }
 
         } catch (Exception e) {

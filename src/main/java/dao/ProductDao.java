@@ -89,4 +89,44 @@ public class ProductDao {
 			e.printStackTrace();
 		}
 	}
+
+	public int countProducts() {
+
+		String sql = "SELECT COUNT(*) FROM products";
+
+		try (Connection conn = DBConnection.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery()) {
+
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
+	public void insert(Product p) {
+
+		String sql = "INSERT INTO products(name, description, price, stock_quantity, image_url, category_id) "
+				+ "VALUES(?,?,?,?,?,?)";
+
+		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setString(1, p.getName());
+			ps.setString(2, p.getDescription());
+			ps.setDouble(3, p.getPrice());
+			ps.setInt(4, p.getStockQuantity());
+			ps.setString(5, p.getImageUrl());
+			ps.setInt(6, p.getCategoryId());
+
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

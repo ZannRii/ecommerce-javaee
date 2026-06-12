@@ -1,0 +1,134 @@
+@charset "UTF-8";
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+/* Header */
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #2c3e50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* Layout */
+.container{
+    display:flex;
+    min-height:calc(100vh - 120px);
+}
+
+/* Sidebar */
+.sidebar{
+    position: fixed;
+    top: 60px;   /* below header */
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 60px);
+    background: #34495e;
+    overflow-y: auto;
+}
+
+.menu{
+    list-style:none;
+    padding:0;
+}
+
+.menu li a{
+    display:block;
+    padding:12px 20px;
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+.menu li a:hover{
+    background:#1a252f;
+}
+
+.submenu{
+    list-style:none;
+    padding-left:20px;
+    display:none;
+    background:#34495e;
+}
+
+.submenu li a{
+    padding:10px 20px;
+    font-size:14px;
+}
+
+.logout{
+    color:#ff6b6b;
+}
+.menu-title{
+    font-weight:bold;
+    color:#f1c40f;
+    margin-top:10px;
+}
+
+.logout{
+    color:#ff6b6b;
+}
+
+/* Main Content */
+.content{
+	flex:1;
+    margin-left: 250px;  /* space for sidebar */
+    margin-top: 60px;    /* space for header */
+    padding: 20px;
+    min-height: calc(100vh - 60px);
+    background: #f4f6f9;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card h3{
+    color:#777;
+}
+
+.card p{
+    font-size:32px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+/* Footer */
+.footer{
+    margin-left: 250px;
+    padding: 15px;
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+}
