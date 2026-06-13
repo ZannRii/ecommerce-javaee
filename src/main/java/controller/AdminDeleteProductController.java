@@ -13,7 +13,7 @@ import dao.ProductDao;
  * Servlet implementation class DeleteProductController
  */
 @WebServlet("/admin/delete-product")
-public class DeleteProductController extends HttpServlet {
+public class AdminDeleteProductController extends HttpServlet {
 
     /**
 	 * 
