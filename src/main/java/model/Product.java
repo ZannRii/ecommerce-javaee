@@ -9,8 +9,17 @@ public class Product {
     private int stockQuantity;
     private String imageUrl;
     private int categoryId;
+    private String categoryName;
 
-    public Product() {}
+    public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public Product() {}
 
     public int getProductId() {
         return productId;

@@ -109,6 +109,7 @@ public class ProductDao {
 		return 0;
 	}
 
+	// admin add product
 	public void insert(Product p) {
 
 		String sql = "INSERT INTO products(name, description, price, stock_quantity, image_url, category_id) "
@@ -128,5 +129,82 @@ public class ProductDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	// for admin view product
+	public List<Product> findAll() {
+
+		List<Product> products = new ArrayList<>();
+
+		String sql = "SELECT p.*, c.name AS category_name " + "FROM products p " + "LEFT JOIN categories c "
+				+ "ON p.category_id = c.category_id";
+
+		try (Connection con = DBConnection.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+
+				Product p = new Product();
+
+				p.setProductId(rs.getInt("product_id"));
+				p.setName(rs.getString("name"));
+				p.setDescription(rs.getString("description"));
+				p.setPrice(rs.getDouble("price"));
+				p.setStockQuantity(rs.getInt("stock_quantity"));
+				p.setImageUrl(rs.getString("image_url"));
+				p.setCategoryId(rs.getInt("category_id"));
+				p.setCategoryName(rs.getString("category_name"));
+
+				products.add(p);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return products;
+	}
+
+	// update product
+	public boolean update(Product p) {
+
+		String sql = "UPDATE products " + "SET name=?, price=?, stock_quantity=?, "
+				+ "description=?, image_url=?, category_id=? " + "WHERE product_id=?";
+
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setString(1, p.getName());
+			ps.setDouble(2, p.getPrice());
+			ps.setInt(3, p.getStockQuantity());
+			ps.setString(4, p.getDescription());
+			ps.setString(5, p.getImageUrl());
+			ps.setInt(6, p.getCategoryId());
+			ps.setInt(7, p.getProductId());
+
+			return ps.executeUpdate() > 0;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+    //delete product
+	public boolean delete(int productId) {
+
+		String sql = "DELETE FROM products WHERE product_id=?";
+
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, productId);
+
+			return ps.executeUpdate() > 0;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 }

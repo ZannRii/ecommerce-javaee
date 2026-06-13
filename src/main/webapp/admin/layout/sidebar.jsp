@@ -17,7 +17,7 @@
 			<li class="dropdown"><a href="#"
 				onclick="toggleMenu('products')">Products ▼</a>
 				<ul id="products" class="submenu">
-					<li><a href="products">View Products</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/view-product">View Products</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/add-product">Add Product</a></li>
 				</ul></li>
 
