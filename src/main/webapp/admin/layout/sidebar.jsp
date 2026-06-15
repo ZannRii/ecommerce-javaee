@@ -31,7 +31,7 @@
 			<li class="dropdown"><a href="#" onclick="toggleMenu('orders')">Orders
 					▼</a>
 				<ul id="orders" class="submenu">
-					<li><a href="orders">View Orders</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/orders">View Orders</a></li>
 				</ul></li>
 
 			<li class="dropdown"><a href="#" onclick="toggleMenu('users')">Users

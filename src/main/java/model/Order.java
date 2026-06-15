@@ -3,34 +3,79 @@ package model;
 import java.sql.Timestamp;
 
 public class Order {
-    private int orderId;
-    private int userId;
-    private double totalAmount;
-    private String status;
-    private Timestamp createdAt;
+	private int orderId;
+	private int userId;
+	private double totalAmount;
+	private String status;
+	private String address;
+	public String getAddress() {
+		return address;
+	}
 
-    // Constructors
-    public Order() {}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public Order(int userId, double totalAmount, String status) {
-        this.userId = userId;
-        this.totalAmount = totalAmount;
-        this.status = status;
-    }
+	private Timestamp createdAt;
+	private User user;
+	
 
-    // Getters and Setters
-    public int getOrderId() { return orderId; }
-    public void setOrderId(int orderId) { this.orderId = orderId; }
+	// Constructors
+	public Order() {
+	}
 
-    public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; }
+	public Order(int userId, double totalAmount, String status) {
+		this.userId = userId;
+		this.totalAmount = totalAmount;
+		this.status = status;
+	}
 
-    public double getTotalAmount() { return totalAmount; }
-    public void setTotalAmount(double totalAmount) { this.totalAmount = totalAmount; }
+	public User getUser() {
+		return user;
+	}
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+	// Getters and Setters
+	public int getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
 }
