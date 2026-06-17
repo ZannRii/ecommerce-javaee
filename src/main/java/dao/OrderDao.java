@@ -14,7 +14,6 @@ import java.util.Map;
 import model.Order;
 import model.OrderItem;
 import model.OrderItemDetail;
-import model.Product;
 import model.User;
 import util.DBConnection;
 

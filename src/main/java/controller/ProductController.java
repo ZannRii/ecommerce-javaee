@@ -2,6 +2,7 @@ package controller;
 
 import dao.CartDao;
 import dao.CartItemDao;
+import dao.CategoryDao;
 import dao.ProductDao;
 import model.Product;
 import model.User;
@@ -13,47 +14,64 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/home")
 public class ProductController extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private ProductDao productDao = new ProductDao();
+	private static final long serialVersionUID = 1L;
+	private ProductDao productDao = new ProductDao();
+	CategoryDao categoryDao = new CategoryDao();
+	List<Product> products = new ArrayList<Product>();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // --------------------
-        // PRODUCTS
-        // --------------------
-        List<Product> products = productDao.getAllProducts();
-        req.setAttribute("products", products);
+		// search product
+		products = productDao.getAllProducts();
+		String keyword = req.getParameter("keyword");
 
-        // --------------------
-        // CART COUNT
-        // --------------------
-        int cartCount = 0;
-        User user = (User) req.getSession().getAttribute("user");
+		if (keyword != null && !keyword.trim().isEmpty()) {
 
-        if (user != null) {
+			products = productDao.searchProducts(keyword);
 
-            CartDao cartDao = new CartDao();
-            CartItemDao cartItemDao = new CartItemDao();
+		} else {
 
-            int cartId = cartDao.getCartIdByUser(user.getUserId());
+			products = productDao.getAllProducts();
+		}
 
-            if (cartId != -1) {
-                cartCount = cartItemDao.getTotalQty(cartId);
-            }
-        }
+		//product by category
+		String categoryId = req.getParameter("categoryId");
 
-        req.setAttribute("cartCount", cartCount);
+		if (categoryId != null && !categoryId.isEmpty()) {
 
-        // --------------------
-        // FORWARD
-        // --------------------
-        req.getRequestDispatcher("user/home.jsp").forward(req, resp);
-    }
+			products = productDao.getProductsByCategory(Integer.parseInt(categoryId));
+
+		} else {
+
+			products = productDao.getAllProducts();
+		}
+		// cart count
+		int cartCount = 0;
+		User user = (User) req.getSession().getAttribute("user");
+
+		if (user != null) {
+
+			CartDao cartDao = new CartDao();
+			CartItemDao cartItemDao = new CartItemDao();
+
+			int cartId = cartDao.getCartIdByUser(user.getUserId());
+
+			if (cartId != -1) {
+				cartCount = cartItemDao.getTotalQty(cartId);
+			}
+		}
+
+		req.setAttribute("products", products);
+		req.setAttribute("categories", categoryDao.getAllCategories());
+		req.setAttribute("cartCount", cartCount);
+
+		req.getRequestDispatcher("user/home.jsp").forward(req, resp);
+	}
 }

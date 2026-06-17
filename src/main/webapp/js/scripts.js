@@ -18,18 +18,13 @@ function filter(type) {
 
 /* SEARCH */
 function searchProduct() {
-    let input = document.getElementById("searchBox").value.toLowerCase();
-    let products = document.getElementsByClassName("product-card");
 
-    for (let i = 0; i < products.length; i++) {
-        let name = products[i].getElementsByTagName("h3")[0].innerText.toLowerCase();
+    let keyword =
+        document.getElementById("searchBox").value;
 
-        if (name.includes(input)) {
-            products[i].style.display = "block";
-        } else {
-            products[i].style.display = "none";
-        }
-    }
+    window.location =
+        "home?keyword=" +
+        encodeURIComponent(keyword);
 }
 
 function toggleMenu() {

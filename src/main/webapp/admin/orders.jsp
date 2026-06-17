@@ -14,7 +14,7 @@
 	<jsp:include page="/admin/layout/sidebar.jsp" />
 	<div class="orders-section">
 
-		<h1 class="page-title">📦 Order Management</h1>
+		<h1 class="page-title"> Order Management</h1>
 
 		<table class="orders-table">
 

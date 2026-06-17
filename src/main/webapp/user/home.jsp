@@ -4,8 +4,12 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="model.Product"%>
+<%@ page import="model.Category"%>
 <%
 User user = (User) session.getAttribute("user");
+%>
+<%
+List<Category> categories = (List<Category>) request.getAttribute("categories");
 %>
 <%
 @SuppressWarnings("unchecked")
@@ -68,10 +72,26 @@ List<Product> products = (List<Product>) request.getAttribute("products");
 		</header>
 
 		<nav class="category-nav">
-			<button onclick="filter('all')">All</button>
-			<button onclick="filter('tech')">Tech</button>
-			<button onclick="filter('fashion')">Fashion</button>
-			<button onclick="filter('home')">Home</button>
+
+			<button onclick="location.href='home'">All</button>
+
+			<%
+			if (categories != null) {
+				for (Category c : categories) {
+			%>
+
+			<button
+				onclick="location.href='home?categoryId=<%=c.getCategoryId()%>'">
+
+				<%=c.getName()%>
+
+			</button>
+
+			<%
+			}
+			}
+			%>
+
 		</nav>
 
 	</div>
@@ -106,7 +126,8 @@ List<Product> products = (List<Product>) request.getAttribute("products");
 
 				<input type="hidden" name="action" value="add"> <input
 					type="hidden" name="productId" value="<%=p.getProductId()%>">
-				<input type="number" name="quantity" value="1" min="1" max="<%=p.getStockQuantity()%>">
+				<input type="number" name="quantity" value="1" min="1"
+					max="<%=p.getStockQuantity()%>">
 				<button type="submit">Add To Cart</button>
 
 			</form>
