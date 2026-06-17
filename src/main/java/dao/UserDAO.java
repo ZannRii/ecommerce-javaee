@@ -1,118 +1,149 @@
 package dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 import model.User;
 import util.DBConnection;
 
 public class UserDAO {
 
-    // REGISTER
-    public boolean register(User user) {
-        boolean success = false;
+	public List<User> getAllUsers() {
 
-        try (Connection conn = DBConnection.getConnection()) {
+		List<User> list = new ArrayList<>();
 
-            String sql = "INSERT INTO users(name, email, password, phone, role) VALUES (?, ?, ?, ?, ?)";
+		String sql = "SELECT * FROM users ORDER BY user_id DESC";
 
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
-            ps.setString(4, user.getPhone());
-            ps.setString(5, "CUSTOMER");
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            success = ps.executeUpdate() > 0;
+			ResultSet rs = ps.executeQuery();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			while (rs.next()) {
 
-        return success;
-    }
+				User u = new User();
 
-    // LOGIN
-    public User login(String email, String password) {
+				u.setUserId(rs.getInt("user_id"));
+				u.setName(rs.getString("name"));
+				u.setEmail(rs.getString("email"));
+				u.setRole(rs.getString("role"));
+				u.setCreatedAt(rs.getTimestamp("created_at"));
 
-        User user = null;
+				list.add(u);
+			}
 
-        try (Connection conn = DBConnection.getConnection()) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-            String sql = "SELECT * FROM users WHERE email=?";
+		return list;
+	}
 
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
+	// REGISTER
+	public boolean register(User user) {
+		boolean success = false;
 
-            ResultSet rs = ps.executeQuery();
+		try (Connection conn = DBConnection.getConnection()) {
 
-            if (rs.next()) {
+			String sql = "INSERT INTO users(name, email, password, phone, role) VALUES (?, ?, ?, ?, ?)";
 
-                String hashedPassword = rs.getString("password");
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getEmail());
+			ps.setString(3, user.getPassword());
+			ps.setString(4, user.getPhone());
+			ps.setString(5, "CUSTOMER");
 
-                if (BCrypt.checkpw(password, hashedPassword)) {
+			success = ps.executeUpdate() > 0;
 
-                    user = new User();
-                    user.setUserId(rs.getInt("user_id"));
-                    user.setName(rs.getString("name"));
-                    user.setEmail(rs.getString("email"));
-                    user.setPhone(rs.getString("phone"));
-                    user.setRole(rs.getString("role"));
-                }
-            }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		return success;
+	}
 
-        return user;
-    }
+	// LOGIN
+	public User login(String email, String password) {
 
-    // EMAIL CHECK
-    public boolean emailExists(String email) {
+		User user = null;
 
-        boolean exists = false;
+		try (Connection conn = DBConnection.getConnection()) {
 
-        try (Connection conn = DBConnection.getConnection()) {
+			String sql = "SELECT * FROM users WHERE email=?";
 
-            String sql = "SELECT 1 FROM users WHERE email=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
 
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
 
-            ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
 
-            exists = rs.next();
+				String hashedPassword = rs.getString("password");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+				if (BCrypt.checkpw(password, hashedPassword)) {
 
-        return exists;
-    }
-    
-    public boolean updateProfile(User user) {
+					user = new User();
+					user.setUserId(rs.getInt("user_id"));
+					user.setName(rs.getString("name"));
+					user.setEmail(rs.getString("email"));
+					user.setPhone(rs.getString("phone"));
+					user.setRole(rs.getString("role"));
+				}
+			}
 
-        String sql =
-            "UPDATE users SET name=?, phone=?, email=? WHERE user_id=?";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+		return user;
+	}
 
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getPhone());
-            ps.setString(3, user.getEmail());
-            ps.setInt(4, user.getUserId());
+	// EMAIL CHECK
+	public boolean emailExists(String email) {
 
-            return ps.executeUpdate() > 0;
+		boolean exists = false;
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		try (Connection conn = DBConnection.getConnection()) {
 
-        return false;
-    }
-    
-    public int countUsers() {
+			String sql = "SELECT 1 FROM users WHERE email=?";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, email);
+
+			ResultSet rs = ps.executeQuery();
+
+			exists = rs.next();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return exists;
+	}
+
+	public boolean updateProfile(User user) {
+
+		String sql = "UPDATE users SET name=?, phone=?, email=? WHERE user_id=?";
+
+		try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getPhone());
+			ps.setString(3, user.getEmail());
+			ps.setInt(4, user.getUserId());
+
+			return ps.executeUpdate() > 0;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	public int countUsers() {
 
 		String sql = "SELECT COUNT(*) FROM users";
 

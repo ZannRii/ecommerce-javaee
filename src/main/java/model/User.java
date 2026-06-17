@@ -1,12 +1,21 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class User {
     private int userId;
     private String name;
     private String email;
     private String password;
     private String phone;
-    public int getUserId() {
+    private Timestamp createdAt;
+    public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+	public int getUserId() {
 		return userId;
 	}
 	public void setUserId(int userId) {

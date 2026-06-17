@@ -24,8 +24,8 @@
 			<li class="dropdown"><a href="#"
 				onclick="toggleMenu('categories')">Categories ▼</a>
 				<ul id="categories" class="submenu">
-					<li><a href="categories">View Categories</a></li>
-					<li><a href="add-category">Add Category</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/view-category">View Categories</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/add-category">Add Category</a></li>
 				</ul></li>
 
 			<li class="dropdown"><a href="#" onclick="toggleMenu('orders')">Orders
@@ -37,7 +37,7 @@
 			<li class="dropdown"><a href="#" onclick="toggleMenu('users')">Users
 					▼</a>
 				<ul id="users" class="submenu">
-					<li><a href="users">View Users</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/view-users">View Users</a></li>
 				</ul></li>
 
 			<li><a class="logout" href="${pageContext.request.contextPath}/logout">Logout</a></li>

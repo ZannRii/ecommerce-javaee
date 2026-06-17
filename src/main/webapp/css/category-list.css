@@ -1,0 +1,30 @@
+@charset "UTF-8";
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+.table th, .table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.btn {
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.btn.edit {
+    background: #3498db;
+    color: white;
+}
+
+.btn.delete {
+    background: #e74c3c;
+    color: white;
+    border: none;
+}
