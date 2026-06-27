@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/admin-dashboard.css">
-</head>
-<body>
-	<header class="header">
-		<div class="logo">E-Commerce Admin</div>
-		<div class="admin-info">Welcome, Admin</div>
-	</header>
-</body>
-</html>
+<header class="navbar navbar-dark bg-dark px-3 px-lg-4 py-3 shadow-sm">
+	<a class="navbar-brand fw-bold" href="${pageContext.request.contextPath}/admin/dashboard">
+		<i class="bi bi-speedometer2 text-warning me-2"></i>E-Commerce Admin
+	</a>
+	<div class="text-white-50 fw-semibold">Welcome, Admin</div>
+</header>

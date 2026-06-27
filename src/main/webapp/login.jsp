@@ -4,32 +4,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="css/login.css">
-<link rel="stylesheet" href="css/style.css">
+<title>Login - ShopHub</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light min-vh-100 d-flex flex-column">
 
-	<header class="top-nav">
-		<a href="home" class="logo"> 🛒 ShopHub </a>
+	<header class="navbar navbar-dark bg-dark px-4 py-3 shadow-sm">
+		<a href="home" class="navbar-brand fw-bold"><i class="bi bi-bag-check-fill text-warning me-2"></i>ShopHub</a>
 	</header>
-	<div class="container">
-		<h2>Login</h2>
+	<main class="container flex-grow-1 d-flex align-items-center justify-content-center py-5">
+	<div class="col-12 col-sm-10 col-md-7 col-lg-5 col-xl-4">
+	<div class="card border-0 shadow-sm">
+		<div class="card-body p-4 p-md-5">
+		<h2 class="fw-bold mb-1">Welcome back</h2>
+		<p class="text-secondary mb-4">Login to manage your cart and orders.</p>
 
 		<form action="user" method="post">
 			<input type="hidden" name="action" value="login"> <input
-				type="email" name="email" placeholder="Email" required> <input
-				type="password" name="password" placeholder="Password" required>
+				class="form-control mb-3" type="email" name="email" placeholder="Email" required> <input
+				class="form-control mb-3" type="password" name="password" placeholder="Password" required>
 
-			<button type="submit">Login</button>
+			<button class="btn btn-success w-100 fw-semibold" type="submit">Login</button>
 		</form>
 
-		<a href="register.jsp">Create Account</a>
+		<a class="d-block text-center mt-3" href="register.jsp">Create Account</a>
 
-		<div class="error">${error}</div>
+		<div class="text-danger fw-semibold mt-3">${error}</div>
 	</div>
-	<footer>
-		<p>© 2026 ShopHub</p>
+	</div>
+	</div>
+	</main>
+	<footer class="bg-dark text-white text-center py-4">
+		<p class="mb-0">© 2026 ShopHub</p>
 	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

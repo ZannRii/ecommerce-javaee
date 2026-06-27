@@ -39,7 +39,7 @@ function toggleMenu() {
 
 // close menu when click outside
 window.onclick = function(event) {
-    if (!event.target.matches('.user-icon')) {
+    if (!event.target.closest("button[onclick='toggleMenu()']")) {
         const menu = document.getElementById("dropdownMenu");
         if (menu) {
             menu.style.display = "none";

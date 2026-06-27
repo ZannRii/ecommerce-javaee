@@ -6,37 +6,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/add-product.css">
+<title>Add Product</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 	<!-- HEADER -->
 	<jsp:include page="/admin/layout/header.jsp" />
 
-	<div class="container">
+	<div class="container-fluid py-4">
+		<div class="row g-4">
 
 		<!-- SIDEBAR -->
 		<jsp:include page="/admin/layout/sidebar.jsp" />
 
 		<!-- MAIN CONTENT -->
-		<main class="content">
+		<main class="col-lg-9 col-xl-10">
 
-			<h1>Add Product</h1>
+			<h1 class="fw-bold mb-4">Add Product</h1>
 
 			<form action="${pageContext.request.contextPath}/admin/add-product"
-				method="post" class="form-box">
+				method="post" class="card border-0 shadow-sm">
+				<div class="card-body p-4">
 
-				<label>Product Name</label> <input type="text" name="name" required>
+				<label class="form-label fw-semibold">Product Name</label> <input class="form-control mb-3" type="text" name="name" required>
 
-				<label>Price</label> <input type="number" name="price" step="0.01"
-					required> <label>Stock</label> <input type="number"
-					name="stock" required> <label>Description</label>
-				<textarea name="description"></textarea>
+				<label class="form-label fw-semibold">Price</label> <input class="form-control mb-3" type="number" name="price" step="0.01"
+					required> <label class="form-label fw-semibold">Stock</label> <input class="form-control mb-3" type="number"
+					name="stock" required> <label class="form-label fw-semibold">Description</label>
+				<textarea class="form-control mb-3" name="description" rows="4"></textarea>
 
-				<label>Image URL</label> <input type="text" name="imageUrl">
+				<label class="form-label fw-semibold">Image URL</label> <input class="form-control mb-3" type="text" name="imageUrl">
 
-				<label>Category ID</label> <select name="categoryId" required>
+				<label class="form-label fw-semibold">Category</label> <select class="form-select mb-4" name="categoryId" required>
 
 					<option value="">-- Select Category --</option>
 
@@ -58,12 +60,14 @@
 
 				</select>
 
-				<button type="submit">Add Product</button>
+				<button class="btn btn-success" type="submit"><i class="bi bi-plus-lg me-1"></i>Add Product</button>
+				</div>
 
 			</form>
 
 		</main>
 
+		</div>
 	</div>
 
 	<!-- FOOTER -->

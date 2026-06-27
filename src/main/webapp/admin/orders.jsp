@@ -5,20 +5,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/admin-orders.css">
+<title>Order Management</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 	<jsp:include page="/admin/layout/header.jsp" />
-	<jsp:include page="/admin/layout/sidebar.jsp" />
-	<div class="orders-section">
+	<div class="container-fluid py-4">
+		<div class="row g-4">
+		<jsp:include page="/admin/layout/sidebar.jsp" />
+		<main class="col-lg-9 col-xl-10">
 
-		<h1 class="page-title"> Order Management</h1>
+		<h1 class="fw-bold mb-4"> Order Management</h1>
 
-		<table class="orders-table">
+		<div class="card border-0 shadow-sm">
+		<div class="table-responsive">
+		<table class="table align-middle mb-0">
 
-			<thead>
+			<thead class="table-light">
 				<tr>
 					<th>Order ID</th>
 					<th>Customer</th>
@@ -41,12 +45,12 @@
 
 						<td>$${o.totalAmount}</td>
 
-						<td><span class="status status-${o.status}">
+						<td><span class="badge text-bg-success">
 								${o.status} </span></td>
 
 						<td>${o.createdAt}</td>
 
-						<td><a href="order-details?id=${o.orderId}" class="view-btn">
+						<td><a href="order-details?id=${o.orderId}" class="btn btn-sm btn-outline-success">
 								View Details </a></td>
 
 					</tr>
@@ -56,7 +60,11 @@
 			</tbody>
 
 		</table>
+		</div>
+		</div>
 
+		</main>
+		</div>
 	</div>
 	<!-- FOOTER -->
 	<jsp:include page="/admin/layout/footer.jsp" />

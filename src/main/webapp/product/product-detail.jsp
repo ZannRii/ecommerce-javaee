@@ -14,33 +14,32 @@ Product p = (Product) request.getAttribute("product");
 <html>
 <head>
 <title>Product Detail</title>
-<link rel="stylesheet" href="css/detail.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/cart.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
 	<!-- HEADER -->
-	<div class="sticky-header">
-		<header class="top-nav">
-			<a href="home" class="logo"> 🛒 ShopHub </a>
-			<div class="nav-right">
-				<a href="cart" class="cart-link"> 🛍 Cart: <span id="cartCount">
+	<div class="position-sticky top-0 z-3 shadow-sm">
+		<header class="navbar navbar-dark bg-dark px-3 px-lg-4 py-3">
+			<a href="home" class="navbar-brand fw-bold"><i class="bi bi-bag-check-fill text-warning me-2"></i>ShopHub</a>
+			<div class="d-flex align-items-center gap-2 flex-wrap">
+				<a href="cart" class="btn btn-outline-warning">
+					<i class="bi bi-cart3 me-1"></i> Cart <span id="cartCount" class="badge text-bg-warning ms-1">
 						${cartCount} </span>
-				</a> <span class="user"> Hi, <%=user.getName()%>
+				</a> <span class="text-white fw-semibold"> Hi, <%=user.getName()%>
 				</span>
 				<!-- DROPDOWN MENU -->
-				<div class="user-menu">
+				<div class="dropdown">
 
-					<div class="user-icon" onclick="toggleMenu()">☰</div>
+					<button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-list"></i></button>
 
-					<div id="dropdownMenu" class="dropdown-menu">
+					<div class="dropdown-menu dropdown-menu-end shadow">
 
-						<a href="profile">👤 Profile</a> <a href="my-orders">📦 My
-							Orders</a> <a href="logout">🚪 Logout</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/profile"><i class="bi bi-person me-2"></i>Profile</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/my-orders"><i class="bi bi-box-seam me-2"></i>My Orders</a>
+						<a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
 
 					</div>
 
@@ -49,62 +48,69 @@ Product p = (Product) request.getAttribute("product");
 		</header>
 	</div>
 
-	<div class="container">
+	<main class="container py-5">
+	<div class="row g-4 align-items-start">
 
 		<!-- LEFT IMAGE -->
-		<div class="image-box">
-			<img src="<%=p.getImageUrl()%>" alt="">
+		<div class="col-lg-6">
+			<img src="<%=p.getImageUrl()%>" class="img-fluid rounded-4 shadow-sm bg-white" alt="<%=p.getName()%>">
 		</div>
 
 		<!-- RIGHT INFO -->
-		<div class="info-box">
+		<div class="col-lg-6">
+		<div class="card border-0 shadow-sm">
+		<div class="card-body p-4">
 
-			<h1><%=p.getName()%></h1>
+			<h1 class="fw-bold"><%=p.getName()%></h1>
 
-			<p class="price">
+			<p class="display-6 text-success fw-bold">
 				$<%=p.getPrice()%></p>
 
-			<p class="stock">
-				Stock:
+			<p class="badge text-bg-light border">
+				<i class="bi bi-box-seam me-1"></i> Stock:
 				<%=p.getStockQuantity()%>
 			</p>
 
-			<p class="desc">
+			<p class="text-secondary">
 				<%=p.getDescription()%>
 			</p>
 
 			<!-- ACTION FORM -->
 
-			<form action="cart" method="post" class="action-form">
+			<form action="cart" method="post" class="mb-3">
 
 				<input type="hidden" name="productId" value="<%=p.getProductId()%>">
 
-				<label>Cart Quantity</label> <input type="number" name="quantity"
+				<label class="form-label fw-semibold">Cart Quantity</label> <input class="form-control mb-3" type="number" name="quantity"
 					value="1" min="1" max="<%=p.getStockQuantity()%>">
 
-				<button type="submit" name="action" value="add" class="cart-btn">
-					Add To Cart</button>
+				<button type="submit" name="action" value="add" class="btn btn-success w-100 fw-semibold">
+					<i class="bi bi-cart-plus me-1"></i>Add To Cart</button>
 			</form>
-			<form action="checkout" method="post" class="action-form">
+			<form action="checkout" method="post">
 
 				<input type="hidden" name="type" value="buyNow"> <input
 					type="hidden" name="productId" value="<%=p.getProductId()%>">
 
-				<label>Product Quantity</label> <input type="number" name="quantity"
+				<label class="form-label fw-semibold">Product Quantity</label> <input class="form-control mb-3" type="number" name="quantity"
 					value="1" min="1" max="<%=p.getStockQuantity()%>">
 
-				<button type="submit" class="buy-btn">Buy Now</button>
+				<button type="submit" class="btn btn-warning w-100 fw-semibold">Buy Now</button>
 
 			</form>
 
 		</div>
+		</div>
+		</div>
 
 	</div>
+	</main>
 
 	<!-- FOOTER -->
-	<footer>
-		<p>© 2026 ShopHub</p>
+	<footer class="bg-dark text-white text-center py-4">
+		<p class="mb-0">© 2026 ShopHub</p>
 	</footer>
 	<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

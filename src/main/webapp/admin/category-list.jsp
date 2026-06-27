@@ -10,22 +10,29 @@ List<Category> categories = (List<Category>) request.getAttribute("categories");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/category-list.css">
+<title>Categories</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 	<jsp:include page="/admin/layout/header.jsp" />
 
-	<div class="container">
+	<div class="container-fluid py-4">
+		<div class="row g-4">
 
 		<jsp:include page="/admin/layout/sidebar.jsp" />
 
-		<main class="content">
+		<main class="col-lg-9 col-xl-10">
 
-			<h1>Categories</h1>
+			<div class="d-flex justify-content-between align-items-center mb-4">
+				<h1 class="fw-bold mb-0">Categories</h1>
+				<a class="btn btn-success" href="${pageContext.request.contextPath}/admin/add-category"><i class="bi bi-plus-lg me-1"></i>Add Category</a>
+			</div>
 
-			<table class="table">
+			<div class="card border-0 shadow-sm">
+			<div class="table-responsive">
+			<table class="table align-middle mb-0">
+				<thead class="table-light">
 
 				<tr>
 					<th>ID</th>
@@ -33,6 +40,8 @@ List<Category> categories = (List<Category>) request.getAttribute("categories");
 					<th>Description</th>
 					<th>Actions</th>
 				</tr>
+				</thead>
+				<tbody>
 
 				<%
 				for (Category c : categories) {
@@ -43,15 +52,15 @@ List<Category> categories = (List<Category>) request.getAttribute("categories");
 					<td><%=c.getName()%></td>
 					<td><%=c.getDescription()%></td>
 
-					<td><a class="btn edit"
+					<td><a class="btn btn-sm btn-outline-success"
 						href="edit-category?id=<%=c.getCategoryId()%>"> Edit </a>
 
 						<form action="delete-category" method="post"
-							style="display: inline">
+							class="d-inline">
 
 							<input type="hidden" name="id" value="<%=c.getCategoryId()%>">
 
-							<button class="btn delete"
+							<button class="btn btn-sm btn-outline-danger"
 								onclick="return confirm('Delete category?')">Delete</button>
 
 						</form></td>
@@ -61,10 +70,14 @@ List<Category> categories = (List<Category>) request.getAttribute("categories");
 				}
 				%>
 
+				</tbody>
 			</table>
+			</div>
+			</div>
 
 		</main>
 
+		</div>
 	</div>
 
 	<jsp:include page="/admin/layout/footer.jsp" />
