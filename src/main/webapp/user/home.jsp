@@ -32,8 +32,8 @@ List<Product> products = (List<Product>) request.getAttribute("products");
 			<a href="home" class="navbar-brand fw-bold"><i class="bi bi-bag-check-fill text-warning me-2"></i>ShopHub</a>
 
 			<div class="d-flex flex-grow-1 mx-lg-4 my-3 my-lg-0">
-				<input class="form-control rounded-end-0" type="text" id="searchBox" placeholder="Search products...">
-				<button class="btn btn-warning rounded-start-0 fw-semibold" onclick="searchProduct()">Search</button>
+				<input class="form-control rounded-end-0" type="text" id="searchBox" value="${keyword}" placeholder="Search products..." onkeydown="if(event.key === 'Enter'){ searchProduct(); }">
+				<button type="button" class="btn btn-warning rounded-start-0 fw-semibold" onclick="searchProduct()">Search</button>
 			</div>
 
 			<div class="d-flex align-items-center gap-2 flex-wrap">
@@ -125,7 +125,7 @@ List<Product> products = (List<Product>) request.getAttribute("products");
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
 
 		<%
-		if (products != null) {
+		if (products != null && !products.isEmpty()) {
 			for (Product p : products) {
 		%>
 
@@ -160,7 +160,7 @@ List<Product> products = (List<Product>) request.getAttribute("products");
 		} else {
 		%>
 
-		<div class="col-12"><div class="alert alert-info">No products available.</div></div>
+		<div class="col-12"><div class="alert alert-info">No products found.</div></div>
 
 		<%
 		}

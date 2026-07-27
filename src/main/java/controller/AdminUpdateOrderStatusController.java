@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +29,17 @@ public class AdminUpdateOrderStatusController extends HttpServlet {
 		int orderId = Integer.parseInt(req.getParameter("orderId"));
 		String status = req.getParameter("status");
 
-		orderDao.updateOrderStatus(orderId, status);
+		boolean updated = orderDao.updateOrderStatus(orderId, status);
 
-		resp.sendRedirect(req.getContextPath() + "/admin/order-details?id=" + orderId);
+		if (!updated) {
+			String message = URLEncoder.encode(
+					"Invalid status update. Allowed flow is PENDING to SHIPPED or CANCELLED, then SHIPPED to DELIVERED.",
+					StandardCharsets.UTF_8.name());
+			resp.sendRedirect(req.getContextPath() + "/admin/order-details?id=" + orderId + "&error=" + message);
+			return;
+		}
+
+		String message = URLEncoder.encode("Order status updated successfully.", StandardCharsets.UTF_8.name());
+		resp.sendRedirect(req.getContextPath() + "/admin/order-details?id=" + orderId + "&success=" + message);
 	}
 }

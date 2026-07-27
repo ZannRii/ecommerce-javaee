@@ -113,13 +113,15 @@ public class ProductDao {
 
 		List<Product> products = new ArrayList<>();
 
-		String sql = "SELECT * FROM products " + "WHERE name LIKE ?";
+		String sql = "SELECT * FROM products WHERE LOWER(name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)";
 
 		try (Connection conn = DBConnection.getConnection();
 
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 
-			ps.setString(1, "%" + keyword + "%");
+			String searchPattern = "%" + keyword + "%";
+			ps.setString(1, searchPattern);
+			ps.setString(2, searchPattern);
 
 			ResultSet rs = ps.executeQuery();
 

@@ -8,6 +8,7 @@
 <%
 Order order = (Order) request.getAttribute("order");
 List<OrderItem> items = (List<OrderItem>) request.getAttribute("items");
+List<String> allowedStatuses = (List<String>) request.getAttribute("allowedStatuses");
 %>
 
 <!DOCTYPE html>
@@ -34,7 +35,34 @@ List<OrderItem> items = (List<OrderItem>) request.getAttribute("items");
 		<!-- CONTENT -->
 		<main class="col-lg-9 col-xl-10">
 
-			<h1 class="fw-bold mb-4"><i class="bi bi-receipt text-success me-2"></i>Order Details</h1>
+			<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+				<h1 class="fw-bold mb-0"><i class="bi bi-receipt text-success me-2"></i>Order Details</h1>
+				<a href="${pageContext.request.contextPath}/admin/orders" class="btn btn-outline-dark">
+					<i class="bi bi-arrow-left me-1"></i>Back to Orders
+				</a>
+			</div>
+
+			<%
+			if (request.getAttribute("error") != null) {
+			%>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<i class="bi bi-exclamation-triangle me-2"></i>${error}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<%
+			}
+			%>
+
+			<%
+			if (request.getAttribute("success") != null) {
+			%>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<i class="bi bi-check-circle me-2"></i>${success}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<%
+			}
+			%>
 
 			<!-- ORDER INFO -->
 			<div class="card border-0 shadow-sm mb-4">
@@ -139,21 +167,27 @@ List<OrderItem> items = (List<OrderItem>) request.getAttribute("items");
 
 					<div class="col-md-8">
 					<label class="form-label fw-semibold">Status</label>
-					<select class="form-select" name="status">
+					<select class="form-select" name="status" <%=allowedStatuses == null || allowedStatuses.isEmpty() ? "disabled" : ""%>>
 
-						<option value="PENDING">PENDING</option>
-
-						<option value="SHIPPED">SHIPPED</option>
-
-						<option value="DELIVERED">DELIVERED</option>
-
-						<option value="CANCELLED">CANCELLED</option>
+						<%
+						if (allowedStatuses != null && !allowedStatuses.isEmpty()) {
+							for (String status : allowedStatuses) {
+						%>
+						<option value="<%=status%>"><%=status%></option>
+						<%
+							}
+						} else {
+						%>
+						<option>No further status changes allowed</option>
+						<%
+						}
+						%>
 
 					</select>
 					</div>
 
 					<div class="col-md-4">
-					<button class="btn btn-success w-100" type="submit">Update Status</button>
+					<button class="btn btn-success w-100" type="submit" <%=allowedStatuses == null || allowedStatuses.isEmpty() ? "disabled" : ""%>>Update Status</button>
 					</div>
 
 				</form>

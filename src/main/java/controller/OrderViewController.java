@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.CartDao;
+import dao.CartItemDao;
 import dao.OrderDao;
 import model.OrderItemDetail;
 import model.User;
@@ -21,6 +23,8 @@ import model.User;
 public class OrderViewController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private OrderDao orderDAO = new OrderDao();
+    private CartDao cartDao = new CartDao();
+    private CartItemDao cartItemDao = new CartItemDao();
        
     public OrderViewController() {
         super();
@@ -39,6 +43,7 @@ public class OrderViewController extends HttpServlet {
             List<OrderItemDetail> detailedOrders = orderDAO.getFullOrderHistory(user.getUserId());
             
             request.setAttribute("detailedOrders", detailedOrders);
+            request.setAttribute("cartCount", getCartCount(user.getUserId()));
                    
             request.getRequestDispatcher("order/my-orders.jsp").forward(request, response);
             
@@ -54,5 +59,10 @@ public class OrderViewController extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
+    }
+
+    private int getCartCount(int userId) {
+        int cartId = cartDao.getCartIdByUser(userId);
+        return cartId == -1 ? 0 : cartItemDao.getTotalQty(cartId);
     }
 }

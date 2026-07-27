@@ -28,23 +28,14 @@ public class ProductController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		// search product
-		products = productDao.getAllProducts();
 		String keyword = req.getParameter("keyword");
+		String categoryId = req.getParameter("categoryId");
 
 		if (keyword != null && !keyword.trim().isEmpty()) {
 
-			products = productDao.searchProducts(keyword);
+			products = productDao.searchProducts(keyword.trim());
 
-		} else {
-
-			products = productDao.getAllProducts();
-		}
-
-		//product by category
-		String categoryId = req.getParameter("categoryId");
-
-		if (categoryId != null && !categoryId.isEmpty()) {
+		} else if (categoryId != null && !categoryId.trim().isEmpty()) {
 
 			products = productDao.getProductsByCategory(Integer.parseInt(categoryId));
 
@@ -71,6 +62,7 @@ public class ProductController extends HttpServlet {
 		req.setAttribute("products", products);
 		req.setAttribute("categories", categoryDao.getAllCategories());
 		req.setAttribute("cartCount", cartCount);
+		req.setAttribute("keyword", keyword);
 
 		req.getRequestDispatcher("user/home.jsp").forward(req, resp);
 	}
