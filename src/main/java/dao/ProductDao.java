@@ -119,10 +119,9 @@ public class ProductDao {
 
 				PreparedStatement ps = conn.prepareStatement(sql)) {
 
-			String searchPattern = "%" + keyword + "%";
+			String searchPattern = "%" + keyword.toLowerCase() + "%";
 			ps.setString(1, searchPattern);
 			ps.setString(2, searchPattern);
-
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -279,5 +278,66 @@ public class ProductDao {
 		}
 
 		return false;
+	}
+
+	// for chat
+	public Product findByName(String productName) throws Exception {
+
+		String sql = "SELECT * FROM products WHERE LOWER(name) LIKE LOWER(?) ORDER BY name LIMIT 1";
+
+		try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+			ps.setString(1, "%" + productName + "%");
+
+			ResultSet rs = ps.executeQuery();
+
+			Product product = null;
+
+			if (rs.next()) {
+
+				product = new Product();
+
+				product.setProductId(rs.getInt("product_id"));
+
+				product.setName(rs.getString("name"));
+
+				product.setPrice(rs.getDouble("price"));
+
+				product.setStockQuantity(rs.getInt("stock_quantity"));
+			}
+
+			return product;
+		}
+	}
+
+	// for chat
+	public List<Product> getTopProducts() throws Exception {
+
+		List<Product> products = new ArrayList<>();
+
+		String sql = " SELECT * FROM products ORDER BY created_at DESC LIMIT 5";
+
+		Connection con = DBConnection.getConnection();
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ResultSet rs = ps.executeQuery();
+
+		while (rs.next()) {
+
+			Product product = new Product();
+
+			product.setProductId(rs.getInt("product_id"));
+
+			product.setName(rs.getString("name"));
+
+			product.setPrice(rs.getDouble("price"));
+
+			products.add(product);
+		}
+
+		con.close();
+
+		return products;
 	}
 }

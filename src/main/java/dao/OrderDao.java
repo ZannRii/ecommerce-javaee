@@ -386,5 +386,65 @@ public class OrderDao {
 		}
 	}
 
-	
+	// for chat
+	public Order findOrderById(int orderId, int userId) throws Exception {
+
+		String sql = "SELECT order_id, user_id, total_amount, status, address, created_at FROM orders WHERE order_id = ? AND user_id = ?";
+
+		Connection con = DBConnection.getConnection();
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setInt(1, orderId);
+
+		ps.setInt(2, userId);
+
+		ResultSet rs = ps.executeQuery();
+
+		Order order = null;
+
+		if (rs.next()) {
+
+			order = new Order();
+
+			order.setOrderId(rs.getInt("order_id"));
+
+			order.setUserId(rs.getInt("user_id"));
+
+			order.setTotalAmount(rs.getDouble("total_amount"));
+
+			order.setStatus(rs.getString("status"));
+
+			order.setAddress(rs.getString("address"));
+
+			order.setCreatedAt(rs.getTimestamp("created_at"));
+
+		}
+
+		con.close();
+
+		return order;
+
+	}
+
+	// for chat
+	public boolean cancelOrder(int orderId, int userId) throws Exception {
+
+		String sql = "UPDATE orders SET status = 'CANCELLED' WHERE order_id = ? AND user_id = ?";
+
+		Connection con = DBConnection.getConnection();
+
+		PreparedStatement ps = con.prepareStatement(sql);
+
+		ps.setInt(1, orderId);
+
+		ps.setInt(2, userId);
+
+		int rows = ps.executeUpdate();
+
+		con.close();
+
+		return rows > 0;
+	}
+
 }
